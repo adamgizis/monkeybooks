@@ -57,9 +57,9 @@ export function textToWords(raw: string): string[] {
   if (nonSpaceLength(ascii) >= 0.8 * nonSpaceLength(text)) text = ascii;
   else text = text.normalize('NFC');
 
-  return text
-    .split(/\s+/)
-    .filter((w) => w.length > 0 && (/[\p{L}\p{N}]/u.test(w) || w === '-' || w === '&'));
+  // keep punctuation-only tokens too ("...", "*", '"'); the punctuation
+  // toggle in applyOptions is what removes them
+  return text.split(/\s+/).filter((w) => w.length > 0);
 }
 
 export interface WordOptions {
